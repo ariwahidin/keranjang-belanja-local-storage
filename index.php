@@ -26,9 +26,9 @@
             background-color: #f5f5f5;
         }
 
-        #btnAdd,
-        #btnDelete {
-            margin-bottom: 10px;
+        .delete-button {
+            cursor: pointer;
+            color: red;
         }
     </style>
 </head>
@@ -38,15 +38,15 @@
     <h2>Keranjang Belanja</h2>
 
     <button id="btnAdd">Tambah Item</button>
-    <button id="btnDelete">Hapus Item Terpilih</button>
-
+    <br>
+    <br>
     <table id="cart">
         <thead>
             <tr>
-                <th>Select</th>
                 <th>Produk</th>
                 <th>Harga</th>
                 <th>Jumlah</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>

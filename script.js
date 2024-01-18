@@ -2,8 +2,7 @@ $(document).ready(function () {
     // Cek apakah ada data keranjang belanja di localStorage
     var storedCartData = localStorage.getItem('cartData');
     var cartData = storedCartData ? JSON.parse(storedCartData) : [];
-    
-    
+
     refreshCart();
 
     // Fungsi untuk menambahkan item ke keranjang
@@ -30,10 +29,10 @@ $(document).ready(function () {
 
         $.each(cartData, function (index, item) {
             var row = '<tr>';
-            row += '<td><input type="checkbox" class="item-checkbox" data-index="' + index + '"></td>';
             row += '<td>' + item.product + '</td>';
             row += '<td>' + item.price + '</td>';
             row += '<td>' + item.quantity + '</td>';
+            row += '<td><span class="delete-button" data-index="' + index + '">Hapus</span></td>';
             row += '</tr>';
             tableBody.append(row);
         });
@@ -52,23 +51,10 @@ $(document).ready(function () {
         addItemToCart(productName, productPrice, productQuantity);
     });
 
-    // Event listener untuk tombol hapus item
-    $('#btnDelete').click(function () {
-        // Ambil indeks item yang dicentang
-        var selectedIndexes = [];
-        $('.item-checkbox:checked').each(function () {
-            selectedIndexes.push(parseInt($(this).data('index')));
-        });
-
-        // Hapus item yang dicentang
-        selectedIndexes.sort(function (a, b) {
-            return b - a;
-        });
-        $.each(selectedIndexes, function (index, value) {
-            cartData.splice(value, 1);
-        });
-
-        // Simpan perubahan dan refresh tampilan keranjang
+    // Event listener untuk tombol hapus item di setiap baris
+    $('#cart').on('click', '.delete-button', function () {
+        var index = $(this).data('index');
+        cartData.splice(index, 1);
         saveCartData();
         refreshCart();
     });
